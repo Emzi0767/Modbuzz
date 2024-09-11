@@ -29,6 +29,7 @@ are as follows:
     - 20002 (`0x4E22`, PLC: 20003): Random range (if set to non-zero value, will cause the next random to be within
       this much of the last)
     - 20003-20004 (`0x4E23`-`0x4E24`, PLC: 20004-20005), size 2: 32-bit number register
+    - 20005 (`0x4E25`, PLC: 20006): Writeable numeric value for float testing
   - Input:
     - 30000 (`0x7530`, PLC: 30001): Last random number generated
     - 30001 (`0x7531`, PLC: 30002): Request counter

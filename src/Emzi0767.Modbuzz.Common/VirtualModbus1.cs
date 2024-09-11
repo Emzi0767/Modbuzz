@@ -71,6 +71,10 @@ public sealed class VirtualModbus1
             case 20004:
                 value = (ushort)(this.TextLongStorage >> 16);
                 return true;
+
+            case 20005:
+                value = this.DoubleStorage;
+                return true;
         }
 
         return false;
@@ -98,6 +102,10 @@ public sealed class VirtualModbus1
 
             case 20004:
                 this.TextLongStorage = (uint)((this.TextLongStorage & 0xFFFFu) | ((uint)value << 16));
+                return true;
+
+            case 20005:
+                this.DoubleStorage = value;
                 return true;
         }
 
@@ -240,6 +248,12 @@ public sealed class VirtualModbus1
     /// </summary>
     // 20003, 20004
     public uint TextLongStorage { get; set; } = 1;
+
+    /// <summary>
+    /// Gets or sets the stored double value.
+    /// </summary>
+    // 20005
+    public ushort DoubleStorage { get; set; } = 100;
 
     /// <summary>
     /// Gets or sets whether to enable Modbus logging.
