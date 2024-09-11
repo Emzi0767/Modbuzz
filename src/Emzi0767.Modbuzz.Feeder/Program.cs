@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -223,5 +223,5 @@ public static class Program
         );
 
     public static void PrintHelp()
-        => Console.WriteLine("Usage: feeder <port> <baud rate> <data bits> <parity:None/Odd/Even/Mark/Space> <stop bits:None/One/Two/OnePointFive>");
+        => Console.WriteLine("Usage: feeder <port> <baud rate> <data bits> <parity:None/Odd/Even/Mark/Space> <stop bits:One/Two/One5>");
 }
