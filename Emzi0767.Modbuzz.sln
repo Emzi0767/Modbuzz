@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{997DA86B-80F6-44A9-BFD7-1BBEB798C8AD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emzi0767.Modbuzz.Feeder", "src\Emzi0767.Modbuzz.Feeder\Emzi0767.Modbuzz.Feeder.csproj", "{B5626AFB-DD64-49B6-86CA-C26B7E83CEBE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emzi0767.Modbuzz.Common", "src\Emzi0767.Modbuzz.Common\Emzi0767.Modbuzz.Common.csproj", "{5B494DD8-C2A9-4198-A5B8-BD1F4AFA5F8B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emzi0767.Modbuzz.Protocol", "src\Emzi0767.Modbuzz.Protocol\Emzi0767.Modbuzz.Protocol.csproj", "{AB512709-310C-46BB-A951-01A7A2679B19}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A28DEB87-9F30-472E-8A3E-956F0669489A}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		COPYING.TXT = COPYING.TXT
+		NOTICE.TXT = NOTICE.TXT
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5626AFB-DD64-49B6-86CA-C26B7E83CEBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5626AFB-DD64-49B6-86CA-C26B7E83CEBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5626AFB-DD64-49B6-86CA-C26B7E83CEBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5626AFB-DD64-49B6-86CA-C26B7E83CEBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B494DD8-C2A9-4198-A5B8-BD1F4AFA5F8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B494DD8-C2A9-4198-A5B8-BD1F4AFA5F8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B494DD8-C2A9-4198-A5B8-BD1F4AFA5F8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B494DD8-C2A9-4198-A5B8-BD1F4AFA5F8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB512709-310C-46BB-A951-01A7A2679B19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB512709-310C-46BB-A951-01A7A2679B19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB512709-310C-46BB-A951-01A7A2679B19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB512709-310C-46BB-A951-01A7A2679B19}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B5626AFB-DD64-49B6-86CA-C26B7E83CEBE} = {997DA86B-80F6-44A9-BFD7-1BBEB798C8AD}
+		{5B494DD8-C2A9-4198-A5B8-BD1F4AFA5F8B} = {997DA86B-80F6-44A9-BFD7-1BBEB798C8AD}
+		{AB512709-310C-46BB-A951-01A7A2679B19} = {997DA86B-80F6-44A9-BFD7-1BBEB798C8AD}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E0C5288-22FA-4666-92CB-5D3C74747AF7}
+	EndGlobalSection
+EndGlobal
