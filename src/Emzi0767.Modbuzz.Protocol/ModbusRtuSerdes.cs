@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -128,7 +128,6 @@ public sealed class ModbusRtuSerdes : IModbusSerdes
                 };
                 break;
         }
-        
 
         return ModbusProtocolError.None;
     }

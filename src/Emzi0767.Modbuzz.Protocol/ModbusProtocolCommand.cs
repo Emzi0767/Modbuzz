@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Emzi0767.Modbuzz.Protocol;
+﻿namespace Emzi0767.Modbuzz.Protocol;
 
 /// <summary>
 /// Represents a Modbus command code.

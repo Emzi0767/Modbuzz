@@ -148,13 +148,13 @@ public static class Program
                         },
                     }
                     : new ModbusFrame<ModbusCommandReadDiscreteInputsResponse>
-                      {
-                          Header = MakeHeader(command),
-                          Payload = new()
-                          {
-                              Values = values,
-                          },
-                      }
+                    {
+                        Header = MakeHeader(command),
+                        Payload = new()
+                        {
+                            Values = values,
+                        },
+                    }
                 );
 
                 break;
