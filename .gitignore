@@ -370,3 +370,9 @@ FodyWeavers.xsd
 # Publish output
 publish/
 publish-*/
+
+# Release files
+*.zip
+*.tar
+*.tar.gz
+*.tar.xz
