@@ -1,4 +1,4 @@
-﻿// This file is part of Modbuzz project
+// This file is part of Modbuzz project
 //
 // Copyright © 2024 Emzi0767
 //
@@ -202,7 +202,7 @@ public sealed class ModbusRtuSerdes : IModbusSerdes
         var preambleSize = (sizeof(ushort) * 2) + 1;
         bytesRead += preambleSize;
 
-        if (preambleSize + byteCount >= raw.Length)
+        if (preambleSize + byteCount >= raw.Length || byteCount == 0 || count == 0)
         {
             bytesRead = 0;
             return ModbusProtocolError.IllegalDataValue;
@@ -224,7 +224,7 @@ public sealed class ModbusRtuSerdes : IModbusSerdes
                 break;
 
             case ModbusProtocolCommand.WriteMultipleHoldingRegisters:
-                var values = new ushort[byteCount / 2];
+                var values = new ushort[count];
                 for (var i = 0; i < values.Length; ++i)
                     values[i] = BinaryPrimitives.ReadUInt16BigEndian(data[(i * 2)..]);
 

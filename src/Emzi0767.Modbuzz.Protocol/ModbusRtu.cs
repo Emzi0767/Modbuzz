@@ -1,4 +1,4 @@
-﻿// This file is part of Modbuzz project
+// This file is part of Modbuzz project
 //
 // Copyright © 2024 Emzi0767
 //
@@ -150,21 +150,24 @@ public sealed class ModbusRtu : IModbus
                 else if (frame is not null)
                 {
                     Console.WriteLine("Failed to parse frame: {0} (command {1})", result, frame.Header.Command);
-                    await this._frameQueueWriter.WriteAsync(
-                        new ModbusFrame<ModbusCommandError>
-                        {
-                            Header = new()
+                    if (frame.Header.Command != 0)
+                    {
+                        await this._frameQueueWriter.WriteAsync(
+                            new ModbusFrame<ModbusCommandError>
                             {
-                                SlaveAddress = frame.Header.SlaveAddress,
-                                Command = (ModbusProtocolCommand)(0x80 | (byte)frame.Header.Command),
+                                Header = new()
+                                {
+                                    SlaveAddress = frame.Header.SlaveAddress,
+                                    Command = (ModbusProtocolCommand)(0x80 | (byte)frame.Header.Command),
+                                },
+                                Payload = new()
+                                {
+                                    ErrorCode = result,
+                                }
                             },
-                            Payload = new()
-                            {
-                                ErrorCode = result,
-                            }
-                        },
-                        cancellationToken
-                    );
+                            cancellationToken
+                        );
+                    }
 
                     if (bytesRead == 1 && frame.Header.Command == 0)
                         --cursor;

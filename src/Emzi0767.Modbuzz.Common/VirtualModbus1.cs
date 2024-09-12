@@ -31,7 +31,7 @@ public sealed class VirtualModbus1
     private uint _bigRandom = 0;
     private ushort _last, _current, _counter;
     private bool _lastIncrement, _counterOverflow;
-    private long _debounceTimer = long.MinValue;
+    private long _debounceTimerRandom = long.MinValue, _debounceTimerCounter = long.MinValue;
 
     public bool GetRegister(ushort address, out ushort value)
     {
@@ -164,10 +164,10 @@ public sealed class VirtualModbus1
         get
         {
             var now = Stopwatch.GetTimestamp();
-            if (now - this._debounceTimer < Stopwatch.Frequency)
+            if (now - this._debounceTimerRandom < Stopwatch.Frequency)
                 return this._current;
 
-            this._debounceTimer = now;
+            this._debounceTimerRandom = now;
             this._last = this._current;
             this._bigRandom = (uint)this._random.Next(0, 1_000_000_000);
             if (!this.EnableRandomness)
@@ -198,10 +198,10 @@ public sealed class VirtualModbus1
         get
         {
             var now = Stopwatch.GetTimestamp();
-            if (now - this._debounceTimer < Stopwatch.Frequency)
+            if (now - this._debounceTimerCounter < Stopwatch.Frequency)
                 return this._counter;
 
-            this._debounceTimer = now;
+            this._debounceTimerCounter = now;
             var last = this._counter++;
             if (this._counter < last)
                 this._counterOverflow = true;
