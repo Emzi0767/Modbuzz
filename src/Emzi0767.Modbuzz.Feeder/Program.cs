@@ -1,4 +1,4 @@
-﻿// This file is part of Modbuzz project
+// This file is part of Modbuzz project
 //
 // Copyright © 2024 Emzi0767
 //
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using Emzi0767.Modbuzz.Common;
 using Emzi0767.Modbuzz.Protocol;
@@ -30,8 +31,6 @@ public static class Program
     private static VirtualModbus1 _vmodbus = new();
 
     private static IModbus _modbus;
-    private static ModbusProtocolCommand _lastCmd;
-    private static ushort _lastAddress, _lastCount;
 
     public static async Task Main(string[] args)
     {
@@ -129,15 +128,6 @@ public static class Program
                 break;
         }
 
-        if (command == ModbusProtocolCommand.ReadCoils
-            || command == ModbusProtocolCommand.ReadDiscreteInputs
-            || command == ModbusProtocolCommand.ReadHoldingRegisters
-            || command == ModbusProtocolCommand.ReadInputRegisters)
-        {
-            if (_lastCmd == header.Command && address == _lastAddress && count == _lastCount)
-                return;
-        }
-
         switch (command)
         {
             case ModbusProtocolCommand.ReadCoils:
@@ -210,6 +200,82 @@ public static class Program
                         },
                     }
                 );
+
+                break;
+            }
+
+            case ModbusProtocolCommand.WriteSingleCoil:
+            case ModbusProtocolCommand.WriteMultipleCoils:
+            {
+                var success = true;
+                foreach (var (v, i) in databool.Select((x, i) => (x, i)))
+                    success &= _vmodbus.SetCoil((ushort)(address + i), v);
+
+                if (!success)
+                {
+                    await SendError(command, ModbusProtocolError.IllegalDataAddress);
+                }
+                else
+                {
+                    await _modbus.SendAsync(command == ModbusProtocolCommand.WriteSingleCoil
+                        ? new ModbusFrame<ModbusCommandWriteCoilResponse>
+                        {
+                            Header = MakeHeader(command),
+                            Payload = new()
+                            {
+                                Address = address,
+                                Value = databool.First(),
+                            },
+                        }
+                        : new ModbusFrame<ModbusCommandWriteCoilsResponse>
+                        {
+                            Header = MakeHeader(command),
+                            Payload = new()
+                            {
+                                StartingAddress = address,
+                                Count = (ushort)databool.Count(),
+                            },
+                        }
+                    );
+                }
+
+                break;
+            }
+
+            case ModbusProtocolCommand.WriteSingleHoldingRegister:
+            case ModbusProtocolCommand.WriteMultipleHoldingRegisters:
+            {
+                var success = true;
+                foreach (var (v, i) in datau16.Select((x, i) => (x, i)))
+                    success &= _vmodbus.SetRegister((ushort)(address + i), v);
+
+                if (!success)
+                {
+                    await SendError(command, ModbusProtocolError.IllegalDataAddress);
+                }
+                else
+                {
+                    await _modbus.SendAsync(command == ModbusProtocolCommand.WriteSingleHoldingRegister
+                        ? new ModbusFrame<ModbusCommandWriteRegisterResponse>
+                        {
+                            Header = MakeHeader(command),
+                            Payload = new()
+                            {
+                                Address = address,
+                                Value = datau16.First(),
+                            },
+                        }
+                        : new ModbusFrame<ModbusCommandWriteRegistersResponse>
+                        {
+                            Header = MakeHeader(command),
+                            Payload = new()
+                            {
+                                StartingAddress = address,
+                                Count = (ushort)datau16.Count(),
+                            },
+                        }
+                    );
+                }
 
                 break;
             }

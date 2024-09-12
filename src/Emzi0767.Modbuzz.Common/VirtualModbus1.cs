@@ -16,6 +16,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Diagnostics;
 
 namespace Emzi0767.Modbuzz.Common;
 
@@ -30,6 +31,7 @@ public sealed class VirtualModbus1
     private uint _bigRandom = 0;
     private ushort _last, _current, _counter;
     private bool _lastIncrement, _counterOverflow;
+    private long _debounceTimer = long.MinValue;
 
     public bool GetRegister(ushort address, out ushort value)
     {
@@ -161,6 +163,11 @@ public sealed class VirtualModbus1
     {
         get
         {
+            var now = Stopwatch.GetTimestamp();
+            if (now - this._debounceTimer < Stopwatch.Frequency)
+                return this._current;
+
+            this._debounceTimer = now;
             this._last = this._current;
             this._bigRandom = (uint)this._random.Next(0, 1_000_000_000);
             if (!this.EnableRandomness)
@@ -190,6 +197,11 @@ public sealed class VirtualModbus1
     {
         get
         {
+            var now = Stopwatch.GetTimestamp();
+            if (now - this._debounceTimer < Stopwatch.Frequency)
+                return this._counter;
+
+            this._debounceTimer = now;
             var last = this._counter++;
             if (this._counter < last)
                 this._counterOverflow = true;
