@@ -2,7 +2,7 @@
   "profiles": {
     "Emzi0767.Modbuzz.Feeder": {
       "commandName": "Project",
-      "commandLineArgs": "COM3 38400 8 None One"
+      "commandLineArgs": "COM4 115200 8 None One"
     }
   }
 }

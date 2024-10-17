@@ -31,7 +31,7 @@ public sealed class VirtualModbus1
     private uint _bigRandom = 0;
     private ushort _last, _current, _counter;
     private bool _lastIncrement, _counterOverflow;
-    private long _debounceTimerRandom = long.MinValue, _debounceTimerCounter = long.MinValue;
+    private long _debounceTimerRandom = 0, _debounceTimerCounter = 0;
 
     public bool GetRegister(ushort address, out ushort value)
     {
